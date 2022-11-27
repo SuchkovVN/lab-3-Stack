@@ -50,5 +50,63 @@ TStack<T>::TStack(T* Mem, size_t size)
 template<typename T>
 TStack<T>::TStack(const TStack<T>& stack)
 {
-
+  sz = stack.sz;
+  pMem = new T[sz];
+  copy(stack.pMem, stack.pMem + sz, pMem);
+  dataCount = stack.dataCount;
+  topIndx = stack.topIndx;
 }
+
+template<typename T>
+TStack<T>::~TStack()
+{
+  delete [] pMem;
+  pMem = 0;
+}
+
+template<typename T>
+bool TStack<T>::IsEmpty() const 
+{
+  if (dataCount == 0) return true;
+  else return false; 
+}
+
+template<typename T>
+bool TStack<T>::IsFull() const 
+{
+  if (dataCount == sz) return true;
+  else return false;
+}
+
+template<typename T>
+void TStack<T>::Push(const T& elem)
+{
+  if (dataCount == sz) throw "Error: can't push"; 
+  if (dataCount == 0)
+  {
+    topIndx = 0;
+  }
+  else topIndx++;
+
+  pMem[topIndx] = elem;
+  dataCount++;
+}
+
+template<typename T>
+T TStack<T>::Pop()
+{
+  if (dataCount == 0) throw "Error: can't pop";
+  T temp = pMem[topIndx];
+  dataCount--;
+  if (topIndx != 0) topIndx--;
+
+  return temp;
+}
+
+template<typename T>
+T TStack<T>::Top() const
+{
+  T temp = pMem[topIndx];
+  return temp;
+}
+
