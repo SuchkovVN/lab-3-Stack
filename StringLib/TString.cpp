@@ -56,7 +56,11 @@ TString::~TString() {
   str = 0;
 }
 
+<<<<<<< HEAD
 int TString::GetStrLen() const {
+=======
+int TString::GetStrLen() {
+>>>>>>> be460bed2fc506bc8304f4a2b396f84db34ab6af
   return lenght;
 }
 

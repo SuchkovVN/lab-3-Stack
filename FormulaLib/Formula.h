@@ -1,4 +1,5 @@
 #pragma once
+<<<<<<< HEAD
 
 #include "String.h"
 #include <map>
@@ -25,3 +26,18 @@ public:
 
 };
 
+=======
+#include "String.h"
+
+class TFormula 
+{
+private:
+  TString Formula; //строка с формулой 
+  TString PostfixForm; //Постфиксная форма формулы 
+public:
+  TFormula(TString formula = nullptr);
+
+  bool FormulaChecker()
+
+};
+>>>>>>> be460bed2fc506bc8304f4a2b396f84db34ab6af
