@@ -9,12 +9,10 @@ class TStack
 protected:
   T* pMem; //Элементы хранятся здесь 
   size_t sz; //Размер массива 
-  size_t dataCount; //Кол-во элементов в стеке 
-  size_t topIndx; //Индекс вершины стека 
+  long int topIndx; //Индекс вершины стека 
 public:
   TStack(size_t size = 1);
   TStack(T* Mem, size_t size);
-  TStack(const TStack<T>& stack);
   ~TStack();
 
   bool IsEmpty() const; //Проверка на пустоту 
@@ -31,8 +29,7 @@ TStack<T>::TStack(size_t size)
 {
   sz = size;
   pMem = new T[sz];
-  dataCount = 0;
-  topIndx = 0;
+  topIndx = -1;
 }
 
 template<typename T>
@@ -43,12 +40,51 @@ TStack<T>::TStack(T* Mem, size_t size)
   sz = size; 
   pMem = new T[sz];
   copy(Mem, Mem + sz, pMem);
-  dataCount = size;
   topIndx = size - 1;
 }
 
-template<typename T>
-TStack<T>::TStack(const TStack<T>& stack)
+template<typename T> 
+TStack<T>::~TStack()
 {
+  delete [] pMem;
+  pMem = 0;
+}
 
+template<typename T>
+bool TStack<T>::IsEmpty() const
+{
+  if (topIndx == -1) return true;
+  return false;
+}
+
+template<typename T>
+bool TStack<T>::IsFull() const
+{
+  if (topIndx == sz - 1) return true;
+  return false;
+}
+
+template<typename T>
+void TStack<T>::Push(const T& elem)
+{
+  if (topIndx == sz - 1) throw "Error: stack is full";
+  topIndx++;
+  pMem[topIndx] = T;
+}
+
+template<typename T>
+T TStack<T>::Pop()
+{
+  if (topIndx == -1) throw "Error: stack is empty";
+  T temp = pMem[topIndx];
+  topIndx--;
+  return temp;
+}
+
+template<typename T>
+T TStack<T>::Top() const
+{
+  if (topIndx == -1) throw "Error: stack is empty";
+  T temp = pMem[topIndx];
+  return temp;
 }
