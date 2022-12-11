@@ -1,32 +1,51 @@
 #pragma once
 
 #include <map>
-#include "String.h"
+#include <math.h>
 
-map<char*, int> opPriority = 
+using namespace std;
+
+class Operations 
 {
-  {"sqrt", 3},
-  {"sin", 3},
-  {"cos", 3},
-  {"*", 2},
-  {"/", 2},
-  {"+", 1},
-  {"-", 1},
-  {"(", 0},
-  {")", 0}
+private:
+    map<string, vector<int>> ops; 
+public:
+    Operations() 
+    {
+        ops.emplace("sqrt", vector<int>{ 3, 1 });
+        ops.emplace("sin", vector<int>{ 3, 1 });
+        ops.emplace("cos", vector<int>{ 3, 1 });
+        ops.emplace("*", vector<int>{ 2, 2 });
+        ops.emplace("/", vector<int>{ 2, 2 });
+        ops.emplace("+", vector<int>{ 1, 2 });
+        ops.emplace("-", vector<int>{ 1, 2 });
+        ops.emplace("(", vector<int>{ 0, 0 });
+        ops.emplace(")", vector<int>{ 0, 0 });
+    }
+
+    static string str_op() { return string("sqrt(v), sin(v), cos(v), *, /, +, -, (, )"); }
+
+    bool IsOperation(const string& elem) const { return ops.find(elem) != ops.end(); } 
+
+    int GetPriority(const string& elem) { return ops[elem][0]; } 
+    
+    int GetArity(const string& elem) { return ops[elem][1]; }
+
+    double Calc(const string& elem, double right, double left = 0) 
+    {
+        if (elem == "sqrt")
+            return sqrt(right);
+        if (elem == "sin")
+            return sin(right);
+        if (elem == "cos")
+            return cos(right);
+        if (elem == "*")
+            return right * left;
+        if (elem == "/")
+            return  right / left;
+        if (elem == "+")
+            return  right + left;
+        if (elem == "-")
+            return right - left;
+    }
 };
-
-map<char*, int> opArity = 
-{
-  {"sqrt", 1},
-  {"sin", 1},
-  {"cos", 1},
-  {"*", 2},
-  {"/", 2},
-  {"+", 2},
-  {"-", 2},
-  {"(", 0},
-  {")", 0}
-};
-
-

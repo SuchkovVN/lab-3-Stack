@@ -32,5 +32,5 @@ add_subdirectory(Formula)
 add_subdirectory(FormulaLib)
 add_subdirectory(gtest)
 add_subdirectory(test)
-add_subdirectory(StringLib)
+
 

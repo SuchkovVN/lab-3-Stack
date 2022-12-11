@@ -16,11 +16,8 @@ TString(char *_str);
 TString(TString& obj);
 ~TString();
 
-<<<<<<< HEAD
 int GetStrLen() const;
-=======
 int GetStrLen();
->>>>>>> be460bed2fc506bc8304f4a2b396f84db34ab6af
 char GetStrChar(int index);
 void SetStr(int _lenght, char *_str);
 int Find(char c);

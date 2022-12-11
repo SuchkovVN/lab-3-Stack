@@ -1,43 +1,55 @@
 #pragma once
-<<<<<<< HEAD
 
-#include "String.h"
+
+#include <string>
 #include <map>
 #include "Stack.h"
+#include <vector>
 
-class TFormula
+using namespace std;
+
+class TPostfix
 {
 private:
-  TString formula; //Входная строка с формулой 
-  TString postfixForm; //Постфиксная форма формулы 
+    vector<string> infix;
+    vector<string> postfix;
+    TPostfix(const TPostfix&) = delete; // Запрет на копирование
+    void operator=(const TPostfix&) = delete; // Запрет на присваивание
+    bool BracketsCorrect(string& str) const; // Проверка на корректность раставления скобок в полученной на вход строке
+    void ToInfix(string& str); // Преобразование полученной строки в vector<string> infix
+    void ToPostfix(); // Преобразование infix в vector<string> postfix
+    vector<string> GetVecOfVariables() const; // Получить вектор переменных из постфиксной формы
 
-  bool BracketsCheck(TString str);
-  void ConvertToPostfix();
 public:
-  TFormula(TString str);
-  TString GetVariables();
+    TPostfix(string str) // Конструктор
+    {
+        if (!BracketsCorrect(str))
+            throw string("The brackets in expression are incorrect");
+        ToInfix(str);
+        ToPostfix();
+    }
 
-  double Calculate();
+    vector<string> GetInfix() const { return infix; }
 
+    vector<string> GetPostfix() const { return postfix; }
 
+    string GetStringInfix() const
+    {
+        string tmp;
+        for (const string& elem : infix)
+            tmp += elem + ' ';
+        return tmp;
+    }
 
+    string GetStringPostfix() const
+    {
+        string tmp;
+        for (const string& elem : postfix)
+            tmp += elem + ' ';
+        return tmp;
+    }
 
-  
-
+    double Calculate(bool interface = true, vector<double> vecofvalues = {}) const; // Ввод переменных, вычисление по постфиксной форме
 };
 
-=======
-#include "String.h"
 
-class TFormula 
-{
-private:
-  TString Formula; //строка с формулой 
-  TString PostfixForm; //Постфиксная форма формулы 
-public:
-  TFormula(TString formula = nullptr);
-
-  bool FormulaChecker()
-
-};
->>>>>>> be460bed2fc506bc8304f4a2b396f84db34ab6af
