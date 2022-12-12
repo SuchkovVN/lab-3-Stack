@@ -12,15 +12,18 @@ set(stacklib StackLib)
 set(formulalib FormulaLib)
 set(stack Stack)
 set(formula Formula)
+set(stringlib StringLib)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
 if (NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Release)
 endif()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/StringLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/StackLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/FormulaLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest)
+
 
 add_subdirectory(Stack)
 add_subdirectory(StackLib)
@@ -28,4 +31,5 @@ add_subdirectory(Formula)
 add_subdirectory(FormulaLib)
 add_subdirectory(gtest)
 add_subdirectory(test)
+
 
