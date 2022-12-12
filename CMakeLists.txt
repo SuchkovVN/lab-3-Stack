@@ -23,11 +23,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/StringLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/StackLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/FormulaLib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/StringLib)
+
 
 add_subdirectory(Stack)
 add_subdirectory(StackLib)
-add_subdirectory(StringLib)
 add_subdirectory(Formula)
 add_subdirectory(FormulaLib)
 add_subdirectory(gtest)

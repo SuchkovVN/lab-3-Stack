@@ -1,27 +1,28 @@
 #include <iostream>
 #include <string>
 #include "Formula.h"
-#include "stack.h"
+#include "Stack.h"
 #include "Operations.h"
+#include <math.h>
 
 using namespace std;
 
 bool TPostfix::BracketsCorrect(string& str) const
 {
-	TStack<bool> stack; // Стек для проверки наличия '('
-	for (const char& elem : str)
+	TStack<bool> stack(16); // Стек для проверки наличия '('
+
+	for (int i = 0; i < str.length(); i++)
 	{
+    char elem = str[i];
 		if (elem == '(')
 		{
 			stack.Push(true);
-			continue;
 		}
-		if (elem == ')')
+		else if (elem == ')')
 		{
 			if (stack.IsEmpty()) // Если стек пуст, то нет пары для ')' -> ошибка
 				return false;
 			stack.Pop();
-			continue;
 		}
 	}
 	if (!stack.IsEmpty()) // Если стек не пуст, то слишком мало ')' -> ошибка
@@ -137,7 +138,7 @@ vector<string> TPostfix::GetVecOfVariables() const
 	return tmp;
 }
 
-double TPostfix::Calculate(bool interface, vector<double> vecofvalues) const // По умолчанию interface == true, vecofvalues == {}
+double TPostfix::Calculate(bool interface, vector<double> vecofvalues) const 
 {
 	map<string, double> values;
 	vector<string> variables = GetVecOfVariables();

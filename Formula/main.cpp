@@ -5,10 +5,11 @@ int main()
 {
   try
   {
-    TFormula test("a+b*(a+c)");
+    TPostfix p("((-1)-(1))");
   }
-  catch (const char* s)
+  catch(const char* s)
   {
-    cout << s << '\n';
+    std::cout << s << '\n';
   }
+  
 }

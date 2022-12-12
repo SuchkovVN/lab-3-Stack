@@ -1,90 +1,61 @@
 #pragma once
 #include <cstddef>
+#include <iostream>
 
 using namespace std;
 
-template<typename T>
-class TStack 
-{
-protected:
-  T* pMem; //Элементы хранятся здесь 
-  size_t sz; //Размер массива 
-  long int topIndx; //Индекс вершины стека 
-public:
-  TStack(size_t size = 1);
-  TStack(T* Mem, size_t size);
-  ~TStack();
+#include <string>
 
-  bool IsEmpty() const; //Проверка на пустоту 
-  bool IsFull() const; //Проверка на заполненость 
-  void Push(const T& elem); //Добавить элемент 
-  T Top() const; //Узнать верхний элемент 
-  T Pop(); //Извлечь верхний элемент 
-  
+const int MaxStackSize = 100;
+
+template <class TType>
+class TStack
+{
+private:
+    TType* pMem;
+    int size;
+    int top;
+    TStack(const TStack&) = delete; // Запрет на копирование стека
+    void operator=(const TStack&) = delete; // Запрет на присваивание стека
+
+public:
+    TStack(int _size = MaxStackSize) // Конструктор по умолчанию
+    {
+        size = _size;
+        top = -1;
+        if ((size < 1) || (size > MaxStackSize))
+            throw std::string("Incorrect Stack Size");
+        pMem = new TType[size];
+    }
+    
+    ~TStack() // Деструктор
+    {
+        delete [] pMem;
+    }
+
+    bool IsEmpty() { return top == -1; } // Проверка пустой ли стек
+
+    bool IsFull() { return top == size - 1; } // Проверка заполнен ли стек
+
+    void Push(const TType obj) // Вставка элемента в вершину стека
+    {
+        if (IsFull())
+            throw std::string("Stack Is Full");
+        pMem[++top] = obj;
+    }
+
+    TType Pop() // Получение значения верхнего элемента с удалением
+    {
+        if (IsEmpty())
+            throw std::string("Stack Is Emty");
+        return pMem[top--];
+    }
+
+    TType Top() // Получение значения верхнего элемента без удаления // Top Of Stack
+    {
+        if (IsEmpty())
+            throw std::string("Stack Is Emty");
+        return pMem[top];
+    }
 
 };
-
-template<typename T>
-TStack<T>::TStack(size_t size) 
-{
-  sz = size;
-  pMem = new T[sz];
-  topIndx = -1;
-}
-
-template<typename T>
-TStack<T>::TStack(T* Mem, size_t size)
-{
-  if (size <= 0) throw "Error: invalid stack size";
-  if (Mem == 0) throw "Error: invalid stack mem";
-  sz = size; 
-  pMem = new T[sz];
-  copy(Mem, Mem + sz, pMem);
-  topIndx = size - 1;
-}
-
-template<typename T> 
-TStack<T>::~TStack()
-{
-  delete [] pMem;
-  pMem = 0;
-}
-
-template<typename T>
-bool TStack<T>::IsEmpty() const
-{
-  if (topIndx == -1) return true;
-  return false;
-}
-
-template<typename T>
-bool TStack<T>::IsFull() const
-{
-  if (topIndx == sz - 1) return true;
-  return false;
-}
-
-template<typename T>
-void TStack<T>::Push(const T& elem)
-{
-  if (topIndx == sz - 1) throw "Error: stack is full";
-  topIndx++;
-  pMem[topIndx] = elem;
-}
-
-template<typename T>
-T TStack<T>::Pop()
-{
-  if (topIndx == -1) throw "Error: stack is empty";
-  T temp = pMem[topIndx];
-  topIndx--;
-  return temp;
-}
-
-template<typename T>
-T TStack<T>::Top() const
-{
-  if (topIndx == -1) throw "Error: stack is empty";
-  T temp = pMem[topIndx];
-  return temp;
-}
